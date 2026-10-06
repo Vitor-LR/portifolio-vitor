@@ -72,7 +72,7 @@
    Conceito visual: "console de engenharia".
    Fundo navy profundo + constelação de partículas, destaque
    ciano (cor do Go), tipografia técnica (Space Grotesk / Inter /
-   JetBrains Mono). Tudo escuro, premium e discreto.
+   JetBrains Mono).
    ============================================================ */
 
 /* ----- Reset & base ----------------------------------------- */
@@ -1457,38 +1457,6 @@ body::before {
     border-radius: 0.85rem;
 }
 .projects-more .btn .icon { width: 1.15em; height: 1.15em; }
-
-/* página "todos os projetos": cards empilhados, um abaixo do outro */
-.projects-stack {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 940px;
-    margin: 0 auto;
-}
-
-/* a partir de telas médias: card na horizontal (capa à esquerda,
-   conteúdo à direita) → blocos bem mais baixos e largos */
-@media (min-width: 640px) {
-    .projects-stack .project-card {
-        flex-direction: row;
-        align-items: stretch;
-    }
-    .projects-stack .project-thumb {
-        aspect-ratio: auto;
-        width: 34%;
-        min-width: 200px;
-        max-width: 300px;
-        border-bottom: none;
-        border-right: 1px solid var(--border);
-    }
-    .projects-stack .project-body {
-        padding: 1.1rem 1.4rem;
-    }
-    .projects-stack .project-body p { margin-bottom: 0.85rem; }
-    .projects-stack .project-tags { margin-bottom: 1rem; }
-    .projects-stack .project-card:hover { transform: translateY(-3px); }
-}
 
 .project-card {
     display: flex;
@@ -2976,27 +2944,6 @@ body::before {
 .case-aside .badges { margin-top: 0.2rem; }
 
 /* ============================================================
-   PÁGINA "OBRIGADO"
-   ============================================================ */
-.thanks {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 2rem;
-}
-
-.thanks .term-mark {
-    font-family: var(--font-mono);
-    color: var(--accent);
-    font-size: 0.9rem;
-    margin-bottom: 1.2rem;
-}
-
-.thanks h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin-bottom: 1rem; }
-.thanks p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.2rem; }
-
-/* ============================================================
    ANIMAÇÕES — entrada / scroll reveal
    ============================================================ */
 @keyframes fadeUp {
@@ -3044,6 +2991,72 @@ body::before {
 .reveal.is-visible {
     opacity: 1;
     transform: none;
+}
+
+/* ============================================================
+   TRANSIÇÃO ENTRE PÁGINAS (View Transitions API, multi-página)
+   ------------------------------------------------------------
+   @view-transition liga a transição nas navegações entre as
+   páginas do próprio site. Sem tipo, vale o fade padrão do
+   navegador (index ↔ todos-projetos, projeto ↔ projeto).
+
+   O page-transitions.js marca a navegação com um TIPO:
+     to-detail → entrando numa página de projeto (/projetos/)
+     to-list   → voltando de uma página de projeto
+   e aqui cada tipo ganha um deslize curto na direção certa:
+   entrar = a página antiga sai para a esquerda e a nova vem da
+   direita; voltar = o inverso.
+
+   O header tem nome próprio (site-header): fica parado no lugar
+   enquanto o conteúdo troca por baixo dele. O menu e os botões
+   de idioma/tema também têm nome: como o botão da direita muda
+   de largura entre as páginas ("Download CV" / "Projetos" /
+   "Início"), eles ficam alguns pixels deslocados de uma página
+   para a outra — com nome, deslizam até a nova posição; sem
+   nome, apareciam duplicados ("fantasma") durante o fade.
+
+   ATENÇÃO: cada view-transition-name precisa ser ÚNICO na página.
+   Se um dia houver dois .lang-toggle (ou dois headers) no mesmo
+   HTML, o navegador cancela a transição inteira, sem erro visível.
+
+   Navegador sem suporte ignora tudo isto (troca seca, como antes).
+   ============================================================ */
+@view-transition { navigation: auto; }
+
+.header       { view-transition-name: site-header; }
+.lang-toggle  { view-transition-name: site-lang; }
+.theme-toggle { view-transition-name: site-theme; }
+
+/* o menu só no desktop: no mobile ele é o painel suspenso (fechado
+   e invisível), não precisa participar da transição */
+@media (min-width: 981px) {
+    .nav { view-transition-name: site-nav; }
+}
+
+/* fundo atrás das duas "fotos" da página enquanto elas deslizam */
+::view-transition { background: var(--bg); }
+
+html:active-view-transition-type(to-detail)::view-transition-old(root) {
+    animation: 0.32s cubic-bezier(.22, .61, .36, 1) both vt-out-left;
+}
+html:active-view-transition-type(to-detail)::view-transition-new(root) {
+    animation: 0.32s cubic-bezier(.22, .61, .36, 1) both vt-in-right;
+}
+html:active-view-transition-type(to-list)::view-transition-old(root) {
+    animation: 0.32s cubic-bezier(.22, .61, .36, 1) both vt-out-right;
+}
+html:active-view-transition-type(to-list)::view-transition-new(root) {
+    animation: 0.32s cubic-bezier(.22, .61, .36, 1) both vt-in-left;
+}
+
+@keyframes vt-out-left  { to   { opacity: 0; transform: translateX(-36px); } }
+@keyframes vt-in-right  { from { opacity: 0; transform: translateX(36px); } }
+@keyframes vt-out-right { to   { opacity: 0; transform: translateX(36px); } }
+@keyframes vt-in-left   { from { opacity: 0; transform: translateX(-36px); } }
+
+/* acessibilidade: quem pediu menos movimento fica sem transição de página */
+@media (prefers-reduced-motion: reduce) {
+    @view-transition { navigation: none; }
 }
 
 /* ============================================================
@@ -3370,31 +3383,6 @@ html { scrollbar-color: var(--scrollbar-thumb) var(--bg); }
     }
     .projects-grid .project-tags { margin-bottom: 0; }
     .projects-grid .project-tags span { font-size: 0.68rem; padding: 0.22rem 0.5rem; }
-}
-
-/* ============================================================
-   Página "todos os projetos" (.projects-stack) no mobile (<640px,
-   onde os cards são verticais). Mesmo tratamento da home: 2 por
-   linha (N×2) e sem os botões "Código / Ver projeto" — o card
-   inteiro continua clicável (link esticado). Acima de 640px o
-   layout horizontal do desktop fica intocado.
-   ============================================================ */
-@media (max-width: 639px) {
-    .projects-stack {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.7rem;
-    }
-    .projects-stack .project-actions { display: none; }
-    .projects-stack .project-thumb { aspect-ratio: auto; height: 104px; }
-    .projects-stack .project-body { padding: 0.85rem 0.9rem; }
-    .projects-stack .project-body h3 { font-size: 1rem; margin-bottom: 0.4rem; }
-    .projects-stack .project-body p {
-        font-size: 0.8rem;
-        line-height: 1.4;
-        margin-bottom: 0.6rem;
-    }
-    .projects-stack .project-tags { margin-bottom: 0; }
-    .projects-stack .project-tags span { font-size: 0.68rem; padding: 0.22rem 0.5rem; }
 }
 
 /* ============================================================

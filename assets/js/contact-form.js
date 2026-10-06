@@ -175,10 +175,6 @@
         var dados = new FormData(form);
         dados.set('_captcha', 'false');
 
-        /* ---- DIAGNÓSTICO ----------------------------------------
-           Enquanto o envio estiver falhando, tudo que o FormSubmit
-           responde vai para o console (F12 → Console). Depois que
-           voltar a funcionar, dá para remover os console.log. */
         var status = 0;
 
         fetch(ENDPOINT, {
@@ -191,10 +187,6 @@
                 return r.text();                       // texto cru, nunca quebra
             })
             .then(function (raw) {
-                console.log('[contact-form] endpoint:', ENDPOINT);
-                console.log('[contact-form] HTTP', status);
-                console.log('[contact-form] resposta:', raw);
-
                 var res = {};
                 try { res = JSON.parse(raw); } catch (e) { /* veio HTML, não JSON */ }
 

@@ -6,6 +6,12 @@
    Usa a View Transitions API multi-página (eventos pageswap/pagereveal)
    e tipos de transição (CSS :active-view-transition-type). Onde não há
    suporte, nada acontece (degradação graciosa: cai no fade padrão).
+
+   COMO É CARREGADO: no <head> de cada página, SEM defer/async.
+   O pagereveal dispara no primeiro render; com defer o script pode
+   rodar depois disso e perder o evento (a navegação fica sem tipo
+   e cai no fade). As animações de cada tipo ficam no style.css,
+   bloco "TRANSIÇÃO ENTRE PÁGINAS".
    ============================================================ */
 (function () {
     'use strict';

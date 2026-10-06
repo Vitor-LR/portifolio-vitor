@@ -34,6 +34,10 @@
     <link rel="preload" href="../assets/fonts/jetbrains-mono-600.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Transição entre páginas: fica no <head> e SEM defer de propósito.
+         O evento pagereveal dispara no primeiro render da página; um script
+         com defer pode rodar depois disso e perder o evento. -->
+    <script src="../assets/js/page-transitions.js"></script>
 </head>
 
 <body>
