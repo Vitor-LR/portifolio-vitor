@@ -32,6 +32,7 @@
         'luizalombard.com.br — Estudo de caso · Vitor Lombard Rocha': 'luizalombard.com.br — Case study · Vitor Lombard Rocha',
         'Calculadora em C — Estudo de caso · Vitor Lombard Rocha': 'C Calculator — Case study · Vitor Lombard Rocha',
         'LinkQ — Estudo de caso · Vitor Lombard Rocha': 'LinkQ — Case study · Vitor Lombard Rocha',
+        'Moltech — Estudo de caso · Vitor Lombard Rocha': 'Moltech — Case study · Vitor Lombard Rocha',
         'DevBurguer — Estudo de caso · Vitor Lombard Rocha': 'DevBurguer — Case study · Vitor Lombard Rocha',
         'Conversor de Distância — Estudo de caso · Vitor Lombard Rocha': 'Distance Converter — Case study · Vitor Lombard Rocha',
 
@@ -393,6 +394,29 @@
         'Makefile com os alvos de build': 'Makefile with the build targets',
         'Calculadora com motor 100% em C freestanding compilado para WebAssembly: máquina de estados, porcentagem contextual e formatação pt-BR, em 12 KB.': 'A calculator with a 100% freestanding C engine compiled to WebAssembly: state machine, contextual percentage and pt-BR formatting, in 12 KB.',
 
+        /* ---------- Moltech ---------- */
+        '// projeto · go + química': '// project · go + chemistry',
+        'Tabela periódica interativa escrita em Go: a estrutura eletrônica dos 118 elementos não fica gravada em arquivo — é calculada a partir do número atômico e desenhada num modelo 3D do átomo que gira com o mouse.': 'An interactive periodic table written in Go: the electron structure of the 118 elements is not stored in a file — it is computed from the atomic number and drawn as a 3D model of the atom that rotates with the mouse.',
+        'O Moltech reúne numa só página a tabela periódica, um modelo 3D de cada átomo, a forma dos orbitais e os íons mais comuns. A tabela pode ser colorida por classificação ou por propriedade, o site inteiro alterna entre português e inglês, e tudo funciona tanto servido pelo Go quanto exportado como site estático no GitHub Pages.': 'Moltech brings together, on a single page, the periodic table, a 3D model of every atom, the shape of the orbitals and the most common ions. The table can be colored by classification or by property, the whole site switches between Portuguese and English, and everything works both served by Go and exported as a static site on GitHub Pages.',
+        'Tabelas periódicas costumam guardar a configuração eletrônica de cada elemento como texto pronto, o que esconde justamente a regra que o estudante precisa entender. A proposta aqui foi o contrário: um programa que parte só do número atômico e chega sozinho a grupo, período, camadas, orbitais e íons — e que consegue provar que o resultado está certo.': 'Periodic tables usually store each element’s electron configuration as ready-made text, which hides exactly the rule a student needs to understand. The goal here was the opposite: a program that starts from the atomic number alone and works out group, period, shells, orbitals and ions by itself — and that can prove the result is right.',
+        'Um pacote em Go distribui os elétrons pela regra de Madelung, aplica as 20 exceções conhecidas (como cromo e cobre), monta o diagrama de orbitais pela regra de Hund e calcula a configuração dos íons. Um teste automatizado compara o resultado dos 118 elementos com uma tabela de referência do PubChem. O mesmo programa serve as páginas, expõe uma API em JSON e exporta o site estático; no navegador, um motor 3D escrito à mão em canvas desenha o átomo sem nenhuma biblioteca.': 'A Go package distributes the electrons by the Madelung rule, applies the 20 known exceptions (such as chromium and copper), builds the orbital diagram by Hund’s rule and computes the configuration of the ions. An automated test compares the result for all 118 elements against a reference table from PubChem. The same program serves the pages, exposes a JSON API and exports the static site; in the browser, a hand-written 3D engine on canvas draws the atom with no libraries.',
+        'Tabela com 118 elementos, colorida por categoria, bloco, estado físico ou por propriedade em escala de cor': 'Table with 118 elements, colored by category, block, physical state or by property on a color scale',
+        'Modelo 3D do átomo que gira ao arrastar, com seleção de camada e faixas de subcamadas s, p, d e f': '3D atom model that rotates on drag, with shell selection and s, p, d and f subshell bands',
+        'Forma dos orbitais s, p, d e f em malha 3D, a partir dos harmônicos esféricos': 'Shape of the s, p, d and f orbitals as a 3D mesh, from the spherical harmonics',
+        '100 íons comuns, com o modelo mostrando o íon escolhido': '100 common ions, with the model showing the selected ion',
+        'Site inteiro em português e inglês, com configurações salvas no navegador': 'Whole site in Portuguese and English, with settings saved in the browser',
+        'Layout responsivo: no celular a tabela inteira encolhe até caber, sem rolagem lateral': 'Responsive layout: on phones the whole table shrinks to fit, with no sideways scrolling',
+        'O pacote chem concentra dados e cálculos e não conhece HTTP; o pacote site renderiza as três páginas com html/template uma única vez, na inicialização, e as serve de memória. HTML, CSS, JavaScript, fontes e dados vão embutidos no binário com embed, então o executável não depende de nenhuma pasta ao lado. Cada arquivo estático recebe uma impressão digital no endereço, o que resolve o cache do navegador sem configuração.': 'The chem package holds data and calculations and knows nothing about HTTP; the site package renders the three pages with html/template once, at startup, and serves them from memory. HTML, CSS, JavaScript, fonts and data are embedded in the binary with embed, so the executable does not depend on any folder next to it. Every static file gets a fingerprint in its address, which solves browser caching with no configuration.',
+        'O bug mais instrutivo não estava na química: depois de uma atualização, o navegador juntava a página nova com o CSS antigo guardado em cache, e o site aparecia quebrado só para quem já o tinha aberto. A correção — versionar o endereço dos arquivos pelo conteúdo — mostrou que servir bem faz parte do produto. Do lado dos cálculos, ficou a lição de desconfiar da fonte de dados: no laurêncio, a tabela de referência e o NIST discordam, e o teste registra essa escolha em vez de escondê-la.': 'The most instructive bug was not in the chemistry: after an update, the browser combined the new page with the old cached CSS, and the site looked broken only for those who had already opened it. The fix — versioning file addresses by their content — showed that serving well is part of the product. On the calculation side, the lesson was to distrust the data source: for lawrencium, the reference table and NIST disagree, and the test records that choice instead of hiding it.',
+        'Go · Educação': 'Go · Education',
+        'Banner do projeto Moltech': 'Moltech project banner',
+        'Ficha do ferro com o modelo 3D do átomo': 'Iron card with the 3D model of the atom',
+        'Orbitais 3d do ferro em malha luminosa': 'Iron 3d orbitals as a glowing mesh',
+        'Tabela colorida por ponto de fusão': 'Table colored by melting point',
+        'Página de íons comuns': 'Common ions page',
+        'Tabela periódica interativa em Go: configuração eletrônica calculada a partir do número atômico, modelo 3D do átomo em canvas, orbitais, íons e site em PT/EN.': 'Interactive periodic table in Go: electron configuration computed from the atomic number, a 3D atom model on canvas, orbitals, ions and a PT/EN site.',
+        'Capa do projeto Moltech': 'Moltech project cover',
+
         /* ---------- LinkQ ---------- */
         '// projeto · go no navegador': '// project · go in the browser',
         'O GitHub Pages não executa servidor — então o servidor virou WebAssembly: validação, códigos curtos, QR Code, DOM e tema, tudo escrito em Go e executado pelo navegador.': 'GitHub Pages runs no server — so the server became WebAssembly: validation, short codes, QR Code, DOM and theme, all written in Go and executed by the browser.',
@@ -460,6 +484,7 @@
         'Conversor de unidades em Flask com formatação pt-BR, empacotado como imagem Docker pública e com demo funcional em JavaScript no GitHub Pages.': 'A Flask unit converter with pt-BR formatting, packaged as a public Docker image, with a working JavaScript demo on GitHub Pages.',
 
         /* dinâmicos: aria dos cards gerados por projects.js */
+        'Ver estudo de caso: Moltech': 'View case study: Moltech',
         'Ver estudo de caso: Fake Shop': 'View case study: Fake Shop',
         'Ver estudo de caso: DevBook': 'View case study: DevBook',
         'Ver estudo de caso: pulso.app': 'View case study: pulso.app',

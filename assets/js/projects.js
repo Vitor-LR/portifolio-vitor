@@ -7,6 +7,9 @@
      PRIMEIROS 4 da lista (os "mais importantes").
    - A página TODOS OS PROJETOS (todos-projetos.html) mostra TODOS.
 
+   - O contador "projetos realizados" da home usa o tamanho desta
+     lista: ao adicionar ou remover um projeto, ele acompanha sozinho.
+
    COMO ADICIONAR UM PROJETO:
    1. Copie um bloco { ... } abaixo e cole no fim da lista.
    2. Preencha os campos.
@@ -30,6 +33,18 @@
                    • "#" ou "" → "Ver projeto" abre a página do estudo de caso.
    ============================================================ */
 window.PROJETOS = [
+
+    {
+        titulo: 'Moltech',
+        categoria: 'Go · Educação',
+        glyph: '⚛ Moltech',
+        descricao: 'Tabela periódica interativa em Go: configuração eletrônica calculada a partir do número atômico, modelo 3D do átomo em canvas, orbitais, íons e site em PT/EN.',
+        tags: ['Go', 'JavaScript', 'Canvas', 'i18n'],
+        pagina: 'projetos/moltech.html',
+        imagem: 'assets/img/moltech/banner.png',
+        codigo: 'https://github.com/Vitor-LR/Moltech',
+        demo: 'https://vitor-lr.github.io/Moltech/'
+    },
 
     {
         titulo: 'Fake Shop',
@@ -141,6 +156,12 @@ window.PROJETOS = [
     var PAGE = 6; // projetos por "página" no carrossel do todos-projetos (grade 3x2)
     var grid = document.querySelector('.projects-grid');     // home (index.html)
     var carousel = document.querySelector('.proj-carousel'); // todos-projetos.html
+
+    // Contador "projetos realizados" da home: sempre igual ao tamanho da lista acima.
+    // Este script roda antes do main.js, que é quem anima o número até o data-count.
+    Array.prototype.forEach.call(document.querySelectorAll('[data-count-projetos]'), function (el) {
+        el.dataset.count = data.length;
+    });
 
     if (grid) grid.innerHTML = data.slice(0, MAX_HOME).map(cardHTML).join('');
     if (carousel) buildCarousel(carousel, data);
